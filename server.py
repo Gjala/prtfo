@@ -1,33 +1,33 @@
-from flask import Flask, render_template, request, redirect
+import flask
 from datetime import datetime
 import csv
 
-app = Flask(__name__)
+app = flask.Flask(__name__)
 print(__name__)
 
 @app.route("/")
 def hello_world():
-    return render_template('index.html')
+    return flask.render_template('index.html')
 
 @app.route("/about")
 def about_us():
-    return render_template('about.html')
+    return flask.render_template('about.html')
 
 @app.route("/works")
 def works_page():
-    return render_template('works.html')
+    return flask.render_template('works.html')
 
 @app.route("/contact")
 def contact_page():
-    return render_template('contact.html')
+    return flask.render_template('contact.html')
 
 @app.route("/components")
 def components_page():
-    return render_template('components.html')
+    return flask.render_template('components.html')
 
 @app.route("/thank_you")
 def thanks():
-    return render_template('thank_you.html')
+    return flask.render_template('thank_you.html')
 
 #contact page obj data
 
@@ -50,11 +50,11 @@ def write_to_csv(data):
 
 @app.route('/submit_form', methods=['POST', 'GET'])
 def submit_form():
-    if request.method == 'POST':
+    if flask.request.method == 'POST':
         try:
-            data = request.form.to_dict()
+            data = flask.request.form.to_dict()
             write_to_csv(data)
-            return redirect('/thank_you')
+            return flask.redirect('/thank_you')
         except:
             return 'Did not save to database'
     else:
